@@ -1,0 +1,19 @@
+
+<h2>User Information :</h2>
+
+<table border=1 cellpadding="5">
+<tr>
+	<th>User Name</th>
+	<th>Password</th>
+	<th>First Nname</th>
+	<th>Last Nname</th>
+</tr>
+<% user.forEach(function (users) { %>
+<tr>
+	<td><%= users.username %></td>
+	<td><%= users.password %></td>
+	<td><%= users.fname %></td>
+	<td><%= users.lname %></td>
+	</tr>
+<% }); %>	
+</table>
