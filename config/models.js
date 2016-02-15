@@ -20,6 +20,7 @@ module.exports.models = {
    connection: 'someMysqlServer',
    autoCreatedAt: false,
    autoUpdatedAt: false,
+   //connection: 'redis',
    schema : false
 
   /***************************************************************************

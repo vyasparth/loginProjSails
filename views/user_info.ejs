@@ -7,13 +7,20 @@
 	<th>Password</th>
 	<th>First Nname</th>
 	<th>Last Nname</th>
+	<th>address1</th>
+	<th>address2</th>
+
 </tr>
-<% user.forEach(function (users) { %>
+<% data.userCount.forEach(function (users) { %>
 <tr>
 	<td><%= users.username %></td>
 	<td><%= users.password %></td>
 	<td><%= users.fname %></td>
 	<td><%= users.lname %></td>
+	<% data.useraddress.forEach(function (useradd) { %>
+	<td><%= useradd.address1 %></td>
+	<td><%= useradd.address2 %></td>
+	<% }); %>	
 	</tr>
 <% }); %>	
 </table>
