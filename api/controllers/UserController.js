@@ -5,6 +5,8 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+var bcrypt = require('bcryptjs');
+
 module.exports = {
 	
 	find_user : function(req, res) {
@@ -12,57 +14,107 @@ module.exports = {
 		var params = req.allParams();
 		var username = params.username;
 		var password = params.password;
-
+    var encrypted_password = "";
 			console.log(username + " " + password);
 
-			User.find({username : username, password : password}, {select : ['id','username','password'
-						,'fname','lname']})
-			.exec(function(err, user) {
-				if (err) return res.badRequest('reason');
-				//res.json(user);
+     
+      // bcrypt.hash(password, 10, function(err, hash) {
 
-				var data = {
+      //     if(err) return cb(err);
+      //       password = hash;
+      //       //calling cb() with an argument returns an error. Useful for canceling the entire operation if some criteria fails.
+      //       console.log( password );
+      //       console.log(bcrypt.getSalt(hash));
+      //   //    console.log("$2a$10$EJi70fQt8r55m");
+      // });
+  
+    User.find({username : username}, { select : ['password'] })
+        .exec(function(err, user) {
 
-                	userCount : user
-        		};
+          var data = {
+
+                  userCount : user
+            };
       
-      			function getValueByKey(key, data) {
-    				
-    				var i, len = data.length;
-    				console.log(len);
+            function getValueByKey(key, data) {
+            
+            var i, len = data.length;
+            console.log(len);
     
-   					 for (i = 0; i < len; i++) {
-        				if (data[i] && data[i].hasOwnProperty(key)) {
-            		
-            				return data[i][key];
-        				}
-    				}
+             for (i = 0; i < len; i++) {
+                if (data[i] && data[i].hasOwnProperty(key)) {
+                
+                    return data[i][key];
+                }
+            }
     
-    				return -1;
-				}
+            return -1;
+        }
 
-				var user_id = getValueByKey('id', data.userCount);
+        var user_password = getValueByKey('password', data.userCount);          
+        
 
-				useraddress.find({user_id : user_id},{select: ['address1','address2']})
-							.exec(function(err,useradd){
-         			 if(err) {
-         				 return res.send(err);
-          			}
+        console.log(user_password);
 
-          			data.useraddress = useradd;
-          			console.log(data);
 
-          			if(data.userCount.length == 1) {
-        	  		
-        	  		//	console.log(req.session);
-        	  			res.view('welcome', {'data' : data});
-        	  		}
-        	  		else {
-        	  			res.send("Please enter a valid email/password!");
-        	  		}
+      bcrypt.compare(password, user_password, function(err, hash)
+      {
+          if(err) return "not true";
+            else 
+              User.find({username : username}, {select : ['id','username','password'
+            ,'fname','lname']})
+      .exec(function(err, user) {
+        if (err) return res.badRequest('reason');
+        //res.json(user);
 
-				});
-			});
+        var data = {
+
+                  userCount : user
+            };
+      
+            function getValueByKey(key, data) {
+            
+            var i, len = data.length;
+            console.log(len);
+    
+             for (i = 0; i < len; i++) {
+                if (data[i] && data[i].hasOwnProperty(key)) {
+                
+                    return data[i][key];
+                }
+            }
+    
+            return -1;
+        }
+
+        var user_id = getValueByKey('id', data.userCount);
+
+        useraddress.find({user_id : user_id},{select: ['address1','address2']})
+              .exec(function(err,useradd){
+               if(err) {
+                 return res.send(err);
+                }
+
+                data.useraddress = useradd;
+                console.log(data);
+
+                if(data.userCount.length == 1) {
+                
+                //  console.log(req.session);
+                  res.view('welcome', {'data' : data});
+                }
+                else {
+                  res.send("Please enter a valid email/password!");
+                }
+
+        });
+      });
+      }); 
+
+    // console.log(password);
+});
+
+			
 	},
 
 	create_user : function(req, res) {
@@ -74,6 +126,14 @@ module.exports = {
 		var lName = param.lname;
 		var add1 = param.add1;
 		var add2 = param.add2;
+
+    bcrypt.hash(password, 10, function(err, hash) {
+      if(err) return cb(err);
+      password = hash;
+      console.log(bcrypt.getSalt(hash));
+      console.log(hash);
+      //calling cb() with an argument returns an error. Useful for canceling the entire operation if some criteria fails.
+    //});
 
 		 User.find({username: username}, {select: ['username']})      //find() to check if username exists or not
         .exec(function(err, user) {
@@ -102,6 +162,8 @@ module.exports = {
                        		if(err) console.log("fff");
                        //    console.log("---------------------------");
            
+
+
  			User.find({username: username}, {select: ['id']})      //find() to check if username exists or not
         		.exec(function(err, user) {
         
@@ -149,6 +211,7 @@ module.exports = {
           }
         }         
         });    
+});
 	}
 };
 
