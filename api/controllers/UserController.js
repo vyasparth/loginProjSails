@@ -5,6 +5,8 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+var nodeSession = require('node-session');
+
 module.exports = {
 	
 	findone : function(req, res) {
