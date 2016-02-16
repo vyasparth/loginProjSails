@@ -54,7 +54,7 @@ module.exports = {
 
           			if(data.userCount.length == 1) {
         	  		
-        	  			console.log(req.session);
+        	  		//	console.log(req.session);
         	  			res.view('welcome', {'data' : data});
         	  		}
         	  		else {
@@ -134,9 +134,12 @@ module.exports = {
             						address1 : add1,
             						address2 : add2,
             						user_id : uid
-            					}).exec(function (err, user) {
+            					}).exec(function (err, useradd) {
 
-            						res.json(user);
+            						//res.json(user);
+            						res.send("You have been registered");
+            						// data.useradd_data = useradd;
+            						// res.view('user_info', {'data' : data});
             					});
            	});
                        });

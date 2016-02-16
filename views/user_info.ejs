@@ -11,13 +11,13 @@
 	<th>address2</th>
 
 </tr>
-<% data.userCount.forEach(function (users) { %>
+<% data.user_data.forEach(function (users) { %>
 <tr>
 	<td><%= users.username %></td>
 	<td><%= users.password %></td>
 	<td><%= users.fname %></td>
 	<td><%= users.lname %></td>
-	<% data.useraddress.forEach(function (useradd) { %>
+	<% data.useradd_data.forEach(function (useradd) { %>
 	<td><%= useradd.address1 %></td>
 	<td><%= useradd.address2 %></td>
 	<% }); %>	
