@@ -37,7 +37,10 @@ module.exports.routes = {
   // }
   'GET /user/findone' : 'UserController.find_user',
   'get /views/signup' : {view : 'signup'},
-  'post /user/signup' : 'UserController.create_user'
+  'post /user/signup' : 'UserController.create_user',
+  'get /user' : 'UserController.user_info',
+  'get /user/logout' : 'UserController.user_logout'
+
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

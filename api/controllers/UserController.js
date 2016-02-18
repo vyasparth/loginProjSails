@@ -9,6 +9,39 @@ var bcrypt = require('bcryptjs');
 
 module.exports = {
 	
+
+  user_info : function(req, res) {
+
+    var userid = req.session.userid;
+       User.find({id : userid }, {select: ['username','password','id','fname','lname']})
+       .exec(function(err, user) {
+       if(err) {
+          return res.send(err);
+       }
+       var data = {
+                 user_data : user
+       };
+
+       useraddress.find({user_id: userid},{select: ['address1','address2']}).exec(function(err,useradd){
+          if(err) {
+          return res.send(err);
+          }
+       
+          console.log(useradd);
+          data.useradd_data = useradd; 
+  //        console.log(data);
+          res.view('user_info',{'data' : data});
+       });
+      });
+  },
+
+  user_logout : function(req,res)
+ {
+   req.session.destroy();
+   console.log(req.session);
+   res.redirect('index.html');
+ },
+
 	find_user : function(req, res) {
 
 		var params = req.allParams();
@@ -16,17 +49,6 @@ module.exports = {
 		var password = params.password;
     var encrypted_password = "";
 			console.log(username + " " + password);
-
-     
-      // bcrypt.hash(password, 10, function(err, hash) {
-
-      //     if(err) return cb(err);
-      //       password = hash;
-      //       //calling cb() with an argument returns an error. Useful for canceling the entire operation if some criteria fails.
-      //       console.log( password );
-      //       console.log(bcrypt.getSalt(hash));
-      //   //    console.log("$2a$10$EJi70fQt8r55m");
-      // });
   
     User.find({username : username}, { select : ['password'] })
         .exec(function(err, user) {
@@ -88,6 +110,10 @@ module.exports = {
         }
 
         var user_id = getValueByKey('id', data.userCount);
+
+        req.session.authenticated = true;
+        req.session.userid = user_id;
+        req.session.username = username;
 
         useraddress.find({user_id : user_id},{select: ['address1','address2']})
               .exec(function(err,useradd){

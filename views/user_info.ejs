@@ -14,13 +14,15 @@
 <% data.user_data.forEach(function (users) { %>
 <tr>
 	<td><%= users.username %></td>
-	<td><%= users.password %></td>
 	<td><%= users.fname %></td>
 	<td><%= users.lname %></td>
 	<% data.useradd_data.forEach(function (useradd) { %>
 	<td><%= useradd.address1 %></td>
-	<td><%= useradd.address2 %></td>
-	<% }); %>	
+ 	<td><%= useradd.address2 %></td>
+ 	<td><%= useradd.address2 %></td>
+	<% }); %>
 	</tr>
 <% }); %>	
 </table>
+
+</br> <a href= "/user/logout"><button type= "button">Logout</button></a>

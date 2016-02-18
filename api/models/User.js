@@ -31,16 +31,5 @@ module.exports = {
      	lname: {
      		type: 'STRING'
      	}
-   // },
-  // beforeCreate: function (values, cb) {
-
-  //   // Encrypt password
-  //   bcrypt.hash(values.password, 10, function(err, hash) {
-  //     if(err) return cb(err);
-  //     values.password = hash;
-  //     getSalt(hash);
-  //     //calling cb() with an argument returns an error. Useful for canceling the entire operation if some criteria fails.
-  //     cb();
-  //   });
-  }  
+  }
 };
