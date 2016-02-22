@@ -1,3 +1,52 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+</style>
+</head>
+<body>
+
+<ul>
+  <li><a href="/views/welcome">Home</a></li>
+  <li><a href="/user/profile">Profile</a></li>
+  <li><a href="/user/display_user">Users</a></li>
+  <ul style="float:right;list-style-type:none;">
+    <li><a class="active" href="#about">About</a></li>
+    <li><a href="/user/logout">Logout</a></li>
+  </ul>
+</ul>
+
+</body>
+</html>
+
 <h2>Users :</h2>
 
 <table border=1 cellpadding="5">
@@ -8,14 +57,21 @@
 	<th>Last Nname</th>
 	<th>Address 1</th>
 	<th>Address 2</th>
+	<th>Type</th>
+	<th>Contact Number</th>
 </tr>
 <tr>
 
-<% data.user_data.forEach(function (users) { %>
+<% user.forEach(function (users) { %>
 <tr>
 	<td><%= users.id %></td>
 	<td><%= users.username %></td>
 	<td><%= users.fname %></td>
 	<td><%= users.lname %></td>
-<% }); %>	
+	<td><%= users.user_add[0].address1 %></td>
+	<td><%= users.user_add[0].address2 %></td>
+	<td><%= users.user_type %></td>
+	<td><%= users.c_number %></td>
+<% }); %>
+</tr>	
 </table>

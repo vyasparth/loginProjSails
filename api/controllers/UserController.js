@@ -59,34 +59,51 @@ module.exports = {
 
   findAll : function(req, res) {
 
-     User.find({select: ['id','username', 'password','fname', 'lname']})
+     User.find({select: ['id','username', 'password','fname', 'lname', 'user_type', 'c_number']})
       .exec(function(err, user) {
         if(err) {
             res.badRequest('reason');
         }
         var data = {
-                 user_data : user
-       };
+                 user_data : user,
+        };
 
-       for(var i=0; i < data.user_data.length ; i++) {
+       var a = 0;
+            console.log(a + " above call");
+        function call () {
 
-           var id = user[i].id;
+            console.log(a + " inside call");
 
+            if(a == user.length) {
+                //res.json(user);
+                res.view('all_users',{'user' : user})              
+            }
+            else {
+            useraddress.find({user_id : user[a].id},{select: ['address1','address2']}).exec(function(err,useradd){
+              if(err) {
+                return res.send(err);
+              }
 
-       //console.log(user[i].id);
-       useraddress.find({user_id : id},{select: ['address1','address2']}).exec(function(err,useradd){
-          if(err) {
-          return res.send(err);
+              console.log(user.length);
+
+                if(a <= user.length - 1) {
+
+                  console.log(useradd);
+                  user[a].user_add = useradd;
+                  console.log(user);
+                  console.log(a);
+
+                  a++;
+                  call();
+                }
+            });
           }
-        
-          //console.log(useradd);
-          data.useradd_data = useradd; 
+          }
+        call();
+       //     console.log("--------STARTING VALUE----------");
+      //  }
 
-         //res.view('all_users', {'data' : data});
-       });
-     }
-    // console.log(data);
-     res.view('all_users', {'data' : data});
+       // res.send(data);
       });
   },
 
@@ -110,7 +127,8 @@ module.exports = {
         //  console.log(useradd);
           data.useradd_data = useradd; 
 
-          res.view('user_info',{'data' : data});
+          res.view('user_info', {'data' : data});
+
        });
       });
   },
@@ -213,7 +231,10 @@ module.exports = {
 		var lName = param.lname;
 		var add1 = param.add1;
 		var add2 = param.add2;
+    var picker = param.typePicker;
+    var c_number = param.c_number
 
+    console.log(picker);
     bcrypt.hash(password, 10, function(err, hash) {
       if(err) return cb(err);
       password = hash;
@@ -246,7 +267,9 @@ module.exports = {
                            username: username,
                            password : password,
                            fname : fName,
-                           lname : lName 
+                           lname : lName,
+                           user_type : picker,
+                           c_number : c_number
                        }).exec(function (err, user) {
 
                        		if(err) console.log("fff");
