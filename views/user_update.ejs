@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +36,6 @@ li a:hover:not(.active) {
 <ul>
   <li><a href="/views/welcome">Home</a></li>
   <li><a href="/user/profile">Profile</a></li>
-  <li><a href="/user/display_user">Users</a></li>
   <ul style="float:right;list-style-type:none;">
     <li><a class="active" href="#about">About</a></li>
     <li><a href="/user/logout">Logout</a></li>
@@ -49,9 +47,4 @@ li a:hover:not(.active) {
 
 
 
-	<h3> Welcome <%= req.session.username %> </h3>	
 
-  <% flash.get('pass_updated').forEach(function (message) { %>
-    
-       <%= message %>
-  <% }) %>

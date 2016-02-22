@@ -1,0 +1,21 @@
+<h2>Users :</h2>
+
+<table border=1 cellpadding="5">
+<tr>
+	<th>id</th>
+	<th>Name</th>
+	<th>First Nname</th>
+	<th>Last Nname</th>
+	<th>Address 1</th>
+	<th>Address 2</th>
+</tr>
+<tr>
+
+<% data.user_data.forEach(function (users) { %>
+<tr>
+	<td><%= users.id %></td>
+	<td><%= users.username %></td>
+	<td><%= users.fname %></td>
+	<td><%= users.lname %></td>
+<% }); %>	
+</table>

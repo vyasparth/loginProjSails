@@ -30,6 +30,18 @@ module.exports = {
      	},
      	lname: {
      		type: 'STRING'
-     	}
-  }
+     	},
+        user_type : {
+
+            type : 'STRING'
+        },
+        is_deleted : {
+
+            type : 'INTEGER'
+        },
+        c_number : {
+
+            type : 'INTEGER'
+        }
+    }
 };

@@ -32,14 +32,21 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  // '/': {
-  //   view: 'homepage'
-  // }
+   '/': {
+     view: 'homepage'
+   },
   'GET /user/findone' : 'UserController.find_user',
   'get /views/signup' : {view : 'signup'},
+  'get /views/welcome' : {view : 'welcome'},
+  'get /user/display_user' :'UserController.findAll',
+  //'get /user/userDisplay ' : ,
   'post /user/signup' : 'UserController.create_user',
-  'get /user' : 'UserController.user_info',
-  'get /user/logout' : 'UserController.user_logout'
+  'get /user/profile' : 'UserController.user_info',
+  'get /user/logout' : 'UserController.user_logout',
+  'get /views/reset_pass' : {view : 'resetPassword'},
+  'put /user/reset_password' : 'UserController.reset_password',
+  // 'get /views/user_update' : {view : 'user_update'},
+  // 'put /user/update' : 'UserController.user_info_update'
 
   /***************************************************************************
   *                                                                          *

@@ -35,9 +35,9 @@ li a:hover:not(.active) {
 <body>
 
 <ul>
-  <li><a href="/views/welcome">Home</a></li>
-  <li><a href="/user/profile">Profile</a></li>
-  <li><a href="/user/display_user">Users</a></li>
+  <li><a href="#home">Home</a></li>
+  <li><a href="/user">Profile</a></li>
+  <li><a href="/views/reset_pass">Reset password</a></li>
   <ul style="float:right;list-style-type:none;">
     <li><a class="active" href="#about">About</a></li>
     <li><a href="/user/logout">Logout</a></li>
@@ -46,12 +46,3 @@ li a:hover:not(.active) {
 
 </body>
 </html>
-
-
-
-	<h3> Welcome <%= req.session.username %> </h3>	
-
-  <% flash.get('pass_updated').forEach(function (message) { %>
-    
-       <%= message %>
-  <% }) %>
